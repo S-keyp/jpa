@@ -1,5 +1,9 @@
 package executable;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import gui.Menu;
 import jakarta.persistence.EntityManager;
 import model.Adress;
@@ -9,6 +13,8 @@ import model.Book;
 import model.BookCategory;
 import model.CD;
 import model.Customer;
+import model.OrderLine;
+import model.PurchaseOrder;
 
 public class JPAMain {
     public static void main(String[] args) {
@@ -67,14 +73,38 @@ public class JPAMain {
         adr2.setStreetNumber(15);
         customer.setAdress2(adr2);
 
+
+        OrderLine l1 = new OrderLine();
+        l1.setPrice(100d);
+        l1.setQuantity(10);
+        l1.setDescription("Desc1");
+        PurchaseOrder order = new PurchaseOrder();
+        order.setAmount(50);
+        order.getOrderLines().add(l1);
+
+        // order.setAmount(50);
+        // order.setDate(new Date(01, 10, 1995));
+        // OrderLine line1 = new OrderLine();
+        // line1.setPrice(100d);
+        // line1.setQuantity(10);
+        // line1.setDescription("Desc1");
+        // order.getOrderLines().add(line1);
+        // order.getOrderLines().add(new OrderLine(30, 300, "Description 2"));
+        // order.getOrderLines().add(new OrderLine(70, 700, "Description 3"));
+
+
+
         em.getTransaction().begin();
+        em.persist(livre3);
+
+        em.persist(l1);
+        em.persist(order);
 
         // em.persist(c);
         // em.persist(livre);
 
         em.persist(customer);
         em.persist(adr2);
-        em.persist(livre3);
         em.getTransaction().commit();
      
 

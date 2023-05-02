@@ -17,6 +17,7 @@ public class Customer {
     
     private String name;
     private String firstName;
+    // private PurchaseOrder order;
 
     // @Embedded
     // private Adress address;
