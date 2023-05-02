@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -17,11 +18,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 // import jakarta.persistence.Transient;
 // import java.time.Instant;
+import jakarta.persistence.MapKeyColumn;
 
 
 
 @Entity
-public class Book {
+public class CD {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,43 +32,13 @@ public class Book {
     private Float price;
     private String description;
     private String isbn;
-    private Integer nbOfPages;
-    private Boolean illustrations;
-    @Enumerated(EnumType.STRING)
-    private BookCategory category;
     @ElementCollection
-    private List<String> tags = new ArrayList<>();
+    // @MapKeyColumn(name = "tracks")
+    private Map<Integer, String> tracks = new HashMap<>();
 
-    public List<String> setTags(String string){
-        tags.add(string);
-        return tags;
+    public Map<Integer, String> getTracks(){
+        return tracks;
     }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public List<String> removeTag(String tag){
-        tags.remove(tag);
-        return tags;
-    }
-
-    public void setCategory(BookCategory category) {
-        this.category = category;
-    }
-
-    public BookCategory getCategory() {
-        return category;
-    }
-
-    // @Transient
-    // private Instant instant;
-    // public void setInstant(){
-    //     this.instant = Instant.now();
-    // }
-    // public Instant getInstant() {
-    //     return instant;
-    // }
 
     public Long getId() {
         return id;
@@ -109,26 +81,9 @@ public class Book {
         this.isbn = isbn;
     }
     
-    public Integer getNbOfPages() {
-        return nbOfPages;
-    }
-    
-    public void setNbOfPages(Integer nbOfPages) {
-        this.nbOfPages = nbOfPages;
-    }
-    
-    public Boolean getIllustrations() {
-        return illustrations;
-    }
-    
-    public void setIllustrations(Boolean illustrations) {
-        this.illustrations = illustrations;
-    }
-    
     @Override
     public String toString() {
-        return "Book [id=" + id + ", title=" + title + ", price=" + price + ", description=" + description + ", isbn="
-                + isbn + ", nbOfPages=" + nbOfPages + ", illustrations=" + illustrations + "]";
+        return "CD [id=" + id + ", title=" + title + ", price=" + price + ", description=" + description + ", isbn="
+                + isbn + "]";
     }
 }
-
